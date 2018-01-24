@@ -6,7 +6,7 @@
     "Heroku"
   ],
   "website": "http://developer.salesforce.com/blogs/developer-relations/2015/02/simple-data-integration-heroku-connect.html",
-  "repository": "",
+  "repository": "https://github.com/ElToroAP/TwitterTest",
   "success_url": "/create",
   "env": {
     "TWITTER_CONSUMER_KEY": {

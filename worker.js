@@ -10,14 +10,14 @@ var tw = new Twitter({
 
 pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) {
   if (err) {
-    console.error(err);
+    console.error('ELTORO Error Connecting to database: ', err);
     process.exit(1);
   }
   client.query('SELECT twitter_handle__c, sfid ' +
     'FROM salesforce.contact ' +
     'WHERE contact.twitter_handle__c IS NOT NULL', function (err, result) {
       if (err) {
-        console.error(err);
+        console.error('ELTORO Error querying contacts: ', err);
       } else {
         console.log('ELTORO: Query: SELECT twitter_handle__c, sfid FROM salesforce.contact WHERE contact.twitter_handle__c IS NOT NULL');
         console.log('ELTORO: Results: ', result);
@@ -25,13 +25,13 @@ pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) 
         result.rows.forEach(function (row) {
           contacts[row.twitter_handle__c.toLowerCase()] = row;
         });
-        console.log('contacts :', contacts);
+        console.log('ELTORO contacts :', contacts);
 
         client.query('SELECT hashtag__c, sfid ' +
           'FROM salesforce.campaign ' +
           'WHERE campaign.hashtag__c IS NOT NULL', function (err, result) {
             if (err) {
-              console.error(err);
+              console.error('ELTORO Error querying campaings: ', err);
             } else {
               console.log('ELTORO: Query: SELECT hashtag__c, sfid FROM salesforce.campaign WHERE campaign.hashtag__c IS NOT NULL');
               console.log('ELTORO: Results: ', result);
@@ -40,12 +40,12 @@ pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) 
               result.rows.forEach(function (row) {
                 query += ((query === '') ? '' : ',') + row.hashtag__c;
               });
-              console.log('query: ', query);
-              console.log('campaigns: ', campaigns);
+              console.error('ELTORO query: ', query);
+              console.error('ELTORO campaigns: ', campaigns);
 
               tw.stream('statuses/filter', { track: query }, function (stream) {
                 stream.on('data', function (tweet) {
-                  console.log('Tweet: ', tweet.text.toLowerCase());
+                  console.log('ELTORO Tweet: ', tweet.text.toLowerCase());
                   if (contacts[tweet.user.screen_name.toLowerCase()]) {
                     campaigns.forEach(function (campaign) {
                       if (tweet.text.toLowerCase().indexOf(campaign.hashtag__c.toLowerCase()) !== -1) {
@@ -63,9 +63,9 @@ pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) 
                         var insert = 'INSERT INTO salesforce.tweet__c(name, contact__c, campaign__c, text__c) VALUES($1, $2, $3, $4)';
                         client.query(insert, [tweet.id_str, contacts[tweet.user.screen_name.toLowerCase()].sfid, campaign.sfid, tweet.text], function (err, result) {
                           if (err) {
-                            console.error(err);
+                            console.error('ELTORO Error inserting into Tweet__c', err);
                           } else {
-                            console.log('Inserted: ', tweet.id_str);
+                            console.log('ELTORO Inserted tweet: ', tweet.id_str);
                           }
                         });
                       } else {
@@ -78,7 +78,7 @@ pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) 
                 });
 
                 stream.on('error', function (error) {
-                  console.error(error);
+                  console.error('ELTORO Error fetching from Tweeter: ', err);
                   throw error;
                 });
               });

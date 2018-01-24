@@ -1,0 +1,19 @@
+{
+  "name": "Heroku-Twitter-Sample",
+  "version": "0.0.1",
+  "description": "Subscibe to tweets and write them to Postgres",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pat Patterson",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "twitter": "~1.2.1",
+    "pg": "^4.5.5",
+    "express": "~3.4.8"
+  },
+  "engines": {
+    "node": "8.1.x"
+  }
+}

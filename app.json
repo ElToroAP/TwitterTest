@@ -6,24 +6,24 @@
     "Heroku"
   ],
   "website": "http://developer.salesforce.com/blogs/developer-relations/2015/02/simple-data-integration-heroku-connect.html",
-  "repository": "https://github.com/metadaddy-sfdc/Heroku-Connect-Twitter-Demo",
+  "repository": "",
   "success_url": "/create",
   "env": {
     "TWITTER_CONSUMER_KEY": {
       "description": "Your Twitter app Consumer Key",
-      "value": "Change me"
+      "value": "PNLaLP4YYZaKhduFZF4T32b2B"
     },
     "TWITTER_CONSUMER_SECRET": {
       "description": "Your Twitter app Consumer Secret",
-      "value": "Change me"
+      "value": "L53S9tqKlo1PSwm7cIQZasVziOk0T5FoLWhj8B00rQNL9gqOzf"
     },
     "TWITTER_ACCESS_TOKEN_KEY": {
       "description": "Your Twitter app Access Token Key",
-      "value": "Change me"
+      "value": "2893328476-X5YyWvDUhklKKY9oRDwSmsAGMY8RS5ss9bkhkAO"
     },
     "TWITTER_ACCESS_TOKEN_SECRET": {
       "description": "Your Twitter app Access Token Secret",
-      "value": "Change me"
+      "value": "eBQqy9Usa7ZSDgvnzW3SR1YoD0f2IQEpfylhFeJAK16bx"
     }
   },
   "addons": ["heroku-postgresql", "herokuconnect:demo"]

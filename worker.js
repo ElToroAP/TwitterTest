@@ -19,8 +19,8 @@ pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) 
       if (err) {
         console.error('ELTORO Error querying contacts: ', err);
       } else {
-        console.log('ELTORO: Query: SELECT twitter_handle__c, sfid FROM salesforce.contact WHERE contact.twitter_handle__c IS NOT NULL');
-        console.log('ELTORO: Results: ', result);
+        console.log('ELTORO: Query #1: SELECT twitter_handle__c, sfid FROM salesforce.contact WHERE contact.twitter_handle__c IS NOT NULL');
+        console.log('ELTORO: Results #1: ', result);
         var contacts = {};
         result.rows.forEach(function (row) {
           contacts[row.twitter_handle__c.toLowerCase()] = row;
@@ -33,8 +33,8 @@ pg.connect(process.env.DATABASE_URL + '?ssl=true', function (err, client, done) 
             if (err) {
               console.error('ELTORO Error querying campaings: ', err);
             } else {
-              console.log('ELTORO: Query: SELECT hashtag__c, sfid FROM salesforce.campaign WHERE campaign.hashtag__c IS NOT NULL');
-              console.log('ELTORO: Results: ', result);
+              console.log('ELTORO: Query #2: SELECT hashtag__c, sfid FROM salesforce.campaign WHERE campaign.hashtag__c IS NOT NULL');
+              console.log('ELTORO: Results #2: ', result);
               var campaigns = result.rows;
               var query = '';
               result.rows.forEach(function (row) {
